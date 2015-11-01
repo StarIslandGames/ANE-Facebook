@@ -91,6 +91,21 @@ DEFINE_ANE_FUNCTION(handleOpenURL)
                                                                  openURL:url
                                                        sourceApplication:sourceApplication
                                                               annotation:annotation];
+    // If authorizing with external safari our app can be closed by os (low memory condition)
+    // In this case we lost FBSDKApplicationDelegate._pendingRequest and delegate openUrl method return NO
+    // So we construct new login manager instance and handle incoming url with it
+    if (!result) {
+        if (url && sourceApplication) {
+            Class loginManagerClass = NSClassFromString(@"FBSDKLoginManager");
+            if (loginManagerClass) {
+                id loginManager = [[loginManagerClass alloc] init];
+                result = [loginManager application:[UIApplication sharedApplication]
+                                           openURL:url
+                                 sourceApplication:sourceApplication
+                                        annotation:annotation];
+            }
+        }
+    }
     return [FREConversionUtil fromBoolean:result];
 }
 
