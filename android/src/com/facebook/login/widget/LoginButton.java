@@ -723,6 +723,10 @@ public class LoginButton extends FacebookButtonBase {
                         loginManager.logInWithPublishPermissions(
                                 LoginButton.this.getFragment(),
                                 properties.permissions);
+                    } else if (LoginButton.this.getNativeFragment() != null) {
+                        loginManager.logInWithPublishPermissions(
+                                LoginButton.this.getNativeFragment(),
+                                properties.permissions);
                     } else {
                         loginManager.logInWithPublishPermissions(
                                 LoginButton.this.getActivity(),
@@ -732,6 +736,10 @@ public class LoginButton extends FacebookButtonBase {
                     if (LoginButton.this.getFragment() != null) {
                         loginManager.logInWithReadPermissions(
                                 LoginButton.this.getFragment(),
+                                properties.permissions);
+                    } else if (LoginButton.this.getNativeFragment() != null) {
+                        loginManager.logInWithReadPermissions(
+                                LoginButton.this.getNativeFragment(),
                                 properties.permissions);
                     } else {
                         loginManager.logInWithReadPermissions(

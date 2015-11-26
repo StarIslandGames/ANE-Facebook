@@ -561,7 +561,7 @@ public final class Utility {
     }
 
     public static void disconnectQuietly(URLConnection connection) {
-        if (connection instanceof HttpURLConnection) {
+        if (connection != null && connection instanceof HttpURLConnection) {
             ((HttpURLConnection) connection).disconnect();
         }
     }
